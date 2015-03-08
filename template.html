@@ -1,0 +1,136 @@
+<div ng-controller="BoomCommController"  >
+<div class="jumbotron-boomcomm" >
+	<div id="loading" ng-hide="isDataValid" class="widget-loading">
+		
+		<span class="widget-loading" >Loading...</span>
+		<img src="http://loadinggif.com/images/image-selection/9.gif">
+	</div>
+
+	<div id="postload" class="hide-boomcomm" ng-show="true" >
+		<div class="{{ show_competitorInfo.name }}-boomcomm" >
+			<img 	src="http://s27.postimg.org/83e3db6un/Amazon.png" 
+				ng-show="show_competitorInfo.name == 'Amazon' " 
+				class="image-boomcomm" >
+			<img 	src="http://static103.tiendeo.us/upload_negocio/negocio_83/logo2.png"
+				ng-show="show_competitorInfo.name == 'Staples' " 
+				class="image-boomcomm" >
+			<img 	src="http://s16.postimg.org/59i3zou75/homedepot.png"
+				ng-show="show_competitorInfo.name == 'Homedepot' " 
+				class="image-boomcomm" >
+			<img 	src="http://s10.postimg.org/y494ehsbp/Walmart.png"
+				ng-show="show_competitorInfo.name == 'Walmart' " 
+				class="image-boomcomm" >
+			<span class="price-large-boomcomm price-status-{{show_competitorInfo.price_status}}" >
+				${{ show_competitorInfo.price }}
+			</span>
+			<span class="caret-down" >
+				&#9660;
+			</span>
+		</div>
+	</div>
+
+	<div id="noComps" class="hide-boomcomm no-comp-found" ng-show="true">
+		No Competitors Found
+	</div>
+
+</div>
+
+<div class="slider-boomcomm" id="dashboard" >
+<!-- 	{{clientInfo}}
+	{{competitorInfo}}
+	{{selected_show_competitor}} -->
+	<!-- client-info -->
+	<div class="client-info" >
+		<!-- views-strategy --><!-- last-price, revert -->
+		<div class="competitor-stat" >
+			<span class="competitor-stat-key" >Views</span>
+			<br/>
+			<span class="competitor-stat-value" >{{ clientInfo.views }}</span>
+		</div>
+
+		<div class="competitor-stat" >
+			<span class="competitor-stat-key" >Strategy</span>
+			<br/>
+			<span class="competitor-stat-value" >{{ clientInfo.lastStrategy }}</span>
+		</div>
+
+		<div class="competitor-stat" >
+			<span class="competitor-stat-key" >Last Price</span>
+			<br/>
+			<span class="competitor-stat-value" >{{ clientInfo.lastPrice }}</span>
+		</div>
+
+		<button class="revert-button" ng-disabled="true" >
+			Revert Price
+		</button>		
+
+	</div>
+	<hr>
+	<!-- competitor-info -->
+	<div class="competitor-info" >
+		<!-- competitor select buttons -->
+		<div class="competitor-names" >
+			<table style="width:100%;" >
+				<tbody>
+					<tr style="border-top: 0px;" >
+						<td 	ng-repeat="competitor in competitorInfo" 
+							ng-click="showCompetitorInfo(competitor.name)">
+							<div 	class="competitor-title" 
+								ng-style="(selected_show_competitor.name == competitor.name)?{ 'background': 'rgb(123, 190, 50)', 'color':'white'} : {'color':'rgb(123, 172, 227)'}">
+								{{ competitor.name }}
+							</div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+
+		<!-- competitor-info-display -->
+		<div class="competitor-stats" >
+
+			<div class="competitor-stat" >
+				<span class="competitor-stat-key" >Price</span>
+				<br/>
+				<span class="competitor-stat-value" >${{ selected_show_competitor.price }}</span>
+			</div>
+
+			<div class="competitor-stat" >
+				<span class="competitor-stat-key" >Original Price</span>
+				<br/>
+				<span class="competitor-stat-value" ng-show="selected_show_competitor.originalPrice" >${{ selected_show_competitor.originalPrice }}</span>
+			</div>
+
+			<div class="competitor-stat" >
+				<span class="competitor-stat-key" >Is Addon</span>
+				<br/>
+				<span class="competitor-stat-value" >{{ selected_show_competitor.isAddOn }}</span>
+			</div>
+
+			<div class="competitor-stat" >
+				<span class="competitor-stat-key" >URL</span>
+				<br/>
+				<span class="competitor-stat-value" >
+					<a href="{{ selected_show_competitor.url }}" target="_blank">
+						LINK
+					</a>
+				</span>
+			</div>
+
+			<div class="competitor-stat" >
+				<span class="competitor-stat-key" >Rating</span>
+				<br/>
+				<span class="competitor-stat-value" >{{ selected_show_competitor.rating }}</span>
+			</div>
+
+			<div class="competitor-stat" >
+				<span class="competitor-stat-key" >Reviews</span>
+				<br/>
+				<span class="competitor-stat-value" >{{ selected_show_competitor.review }}</span>
+			</div>
+
+		</div>
+	</div>
+
+</div>
+
+</div>
