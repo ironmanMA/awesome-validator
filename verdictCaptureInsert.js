@@ -1,18 +1,26 @@
-function giveVerdictObject (verdictStatus) {
+function giveVerdictObject (verdictStatus) {	
 	var sendObj={}
-	sendObj.state = "update"
-	sendObj.srcSku = window.location.href.split('?boomrev')[1].split('_client_pair=')[1];
-	sendObj.dstSku = window.location.href.split('?boomrev')[2].split('_comp_pair=')[1];
-	sendObj.verdict = verdictStatus
+	if( window.name.split("_#_")[0] == "src" ){
+		sendObj.state = "updating_from_src";
+		sendObj.srcSku = window.name.split("_#_")[1]
+		sendObj.dstSku = window.name.split("_#_")[3]
+		sendObj.verdict = verdictStatus
+	}else if( window.name.split("_#_")[0] == "dst" ){
+		sendObj.state = "updating_from_dst";
+		sendObj.srcSku = window.name.split("_#_")[3]
+		sendObj.dstSku = window.name.split("_#_")[1]
+		sendObj.verdict = verdictStatus
+	}
+
 	return sendObj
 }
 
 setTimeout(function(){
 
-		console.log('sdfsdfdssd')
+		console.log('[BoomRevEXT] sdfsdfdssd')
 
 		$("#test-submit-match").click(function(){
-			console.log("The Verdict is MATCH!!!" );
+			console.log("[BoomRevEXT] The Verdict is MATCH!!!" );
 			document.getElementById('verdict').innerHTML = "Match"
 			var pushMsg = giveVerdictObject('MATCH')
 			console.log(pushMsg)
@@ -22,7 +30,7 @@ setTimeout(function(){
 		});
 
 		$("#test-submit-similar").click(function(){
-			console.log("The Verdict is SIMILAR!!!" );
+			console.log("[BoomRevEXT] The Verdict is SIMILAR!!!" );
 			document.getElementById('verdict').innerHTML = "Similar"
 			var pushMsg = giveVerdictObject('SIMILAR')
 			console.log(pushMsg)
@@ -32,7 +40,7 @@ setTimeout(function(){
 		});
 
 		$("#test-submit-nomatch").click(function(){
-			console.log("The Verdict is NOMATCH!!!" );
+			console.log("[BoomRevEXT] The Verdict is NOMATCH!!!" );
 			document.getElementById('verdict').innerHTML = "No Match"
 			var pushMsg = giveVerdictObject('NOMATCH')
 			console.log(pushMsg)
@@ -42,3 +50,4 @@ setTimeout(function(){
 		});
 
 	}, 1500)
+

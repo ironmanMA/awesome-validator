@@ -24,10 +24,12 @@ document.addEventListener('DOMContentLoaded');
 chrome.storage.local.get(null,function (obj){
 	console.log(JSON.stringify(obj));
 	console.log(obj);
+
 	// if(obj.expressions == undefined){
 	// 	obj.expressions = {};
 	// 	obj.expressions.hi = "Local Chrome Storage, "
 	// }
+
 	$("#storageAreaChrome").html( JSON.stringify(obj) )
 });
 
