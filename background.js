@@ -69,17 +69,25 @@ chrome.runtime.onMessage.addListener(
 				chrome.tabs.query({}, function(allTabs) {
 					for (var iterTabs=0; iterTabs<allTabs.length; ++iterTabs) {
 						//send to Validation UI
-						
+						/*
+							store in chrome = Done
+							send to valid UI = Done
+							send to ###dst### pair
+						*/						
 						request.state = "update_boomrev_ui";
 						chrome.tabs.sendMessage(allTabs[iterTabs].id, request, function(response) {
 							console.log("[BoomRevEXT] update_boomrev_ui "+JSON.stringify(response) );
 						});
-
+						/*
+							store in chrome = Done
+							send to valid UI = Done
+							send to ###dst### pair = Done
+						*/
 						request.state = "update_dst_window";
 						chrome.tabs.sendMessage(allTabs[iterTabs].id, request, function(response) {
 							console.log("[BoomRevEXT] update_dst_window "+JSON.stringify(response) );
 						});
-						
+
 						// var codeToWork = "window.name+'_#_tabID_#_"+iterTabs+"';"
 						// chrome.tabs.executeScript( allTabs[iterTabs].id, {code: codeToWork }, function(codeResult){
 						// 	if( codeResult != undefined ){
@@ -127,12 +135,12 @@ chrome.runtime.onMessage.addListener(
 						// });
 					}
 				});
-				chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-					console.log("[BoomRevEXT] Action:"+request.state+" sending request to verdictFetch !!!"+JSON.stringify(tabs) );
-					chrome.tabs.sendMessage(tabs[0].id, request, function(response) {
-					console.log(response.farewell);
-					});
-				});				
+				// chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+				// 	console.log("[BoomRevEXT] Action:"+request.state+" sending request to verdictFetch !!!"+JSON.stringify(tabs) );
+				// 	chrome.tabs.sendMessage(tabs[0].id, request, function(response) {
+				// 	console.log(response.farewell);
+				// 	});
+				// });
 				console.log(chromeObject)
 			});
 		});
@@ -140,6 +148,62 @@ chrome.runtime.onMessage.addListener(
 
     }else if ( request.state == "updating_from_dst" ){
     	//store in chrome, send to valid UI, send to ###src### pair
+	respMsg.status = "updating from src to Chrome Storage"
+	/*
+		store in chrome,
+		send to valid UI,
+		send to ###dst### pair
+	*/
+	chrome.storage.local.get(null,function (chromeObject){
+		console.log("[BoomRevEXT] Action:"+request.state+" GET: Chrome Storage !!!"+JSON.stringify(chromeObject) );
+		console.log(chromeObject)
+		console.log(request);
+		for( sku in chromeObject.fetch ){
+			if( chromeObject.fetch[sku].srcSku == request.srcSku && chromeObject.fetch[sku].dstSku == request.dstSku ){
+				chromeObject.fetch[sku].verdict = request.verdict;
+				break;
+			}
+		}
+		console.log(chromeObject)
+		chrome.storage.local.set(chromeObject,function (){
+			var boomrevWindowName = "BoomRevUI"
+			var toSendWindowName = "src_#_"+request.srcSku+"_#_dst_#_"+request.dstSku
+			var currentWindowName = "dst_#_"+request.dstSku+"_#_src_#_"+request.srcSku
+			/*
+				store in chrome = Done
+				send to valid UI,
+				send to ###src### pair
+			*/
+			console.log("[BoomRevEXT] Action:"+request.state+" SET: Chrome Storage !!!"+JSON.stringify(chromeObject) );
+			chrome.storage.local.get(null,function (chromeObject){
+				console.log("[BoomRevEXT] Action:"+request.state+" Confirm-GET: Chrome Storage !!!"+JSON.stringify(chromeObject) );
+				chrome.tabs.query({}, function(allTabs) {
+					for (var iterTabs=0; iterTabs<allTabs.length; ++iterTabs) {
+						//send to Validation UI
+						/*
+							store in chrome = Done
+							send to valid UI = Done
+							send to ###src### pair
+						*/
+						request.state = "update_boomrev_ui";
+						chrome.tabs.sendMessage(allTabs[iterTabs].id, request, function(response) {
+							console.log("[BoomRevEXT] update_boomrev_ui "+JSON.stringify(response) );
+						});
+						/*
+							store in chrome = Done
+							send to valid UI = Done
+							send to ###src### pair = Done
+						*/
+						request.state = "update_src_window";
+						chrome.tabs.sendMessage(allTabs[iterTabs].id, request, function(response) {
+							console.log("[BoomRevEXT] update_dst_window "+JSON.stringify(response) );
+						});
+					}
+				});
+				console.log(chromeObject)
+			});
+		});
+	});
 
     }else if( request.state == "clear"){
     	
