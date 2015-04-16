@@ -34,16 +34,31 @@ chrome.runtime.onMessage.addListener(
 	if( request.state == "update_boomrev_ui" ){
 		
 		if( window.name == "BoomRevUI" ){
-			console.log("[BoomRevEXT] will update boomrev ui !!!" + JSON.stringify(request) );
+			console.log("[BoomRevEXT] will update verdict on boomrev ui !!!" + JSON.stringify(request) );
 			window.postMessage(request, "*");
 		}
 
+	}else if ( request.state == "update_boomrev_ui_matchcode" ) {
+		if( window.name == "BoomRevUI" ){
+			console.log("[BoomRevEXT] will update matchcode on boomrev ui !!!" + JSON.stringify(request) );
+			window.postMessage(request, "*");
+		}		
 	}else if ( request.state == "update_src_window" ){
 		
 		var srcWindowName = "src_#_"+request.srcSku+"_#_dst_#_"+request.dstSku
 		if( window.name ==  srcWindowName ){
-			console.log("[BoomRevEXT] will update src window !!!" + JSON.stringify(request)+", prevVerdict: "+document.getElementById('verdict').innerHTML );
+			console.log("[BoomRevEXT] will update verdict on src window !!!" + JSON.stringify(request)+", prevVerdict: "+document.getElementById('verdict').innerHTML );
+
 			document.getElementById('verdict').innerHTML = request.verdict;
+			// window.postMessage(request, "*");
+		}
+
+	}else if ( request.state == "update_src_window_matchcode" ){
+		
+		var dstWindowName = "dst_#_"+request.dstSku+"_#_src_#_"+request.srcSku
+		if( window.name == dstWindowName ){
+			console.log("[BoomRevEXT] will update matchcode on src window !!!" + JSON.stringify(request) +", prevMatchCode: "+document.getElementById('matchcode').innerHTML );
+			document.getElementById('matchcode').innerHTML = request.matchcode;
 			// window.postMessage(request, "*");
 		}
 
@@ -51,8 +66,17 @@ chrome.runtime.onMessage.addListener(
 		
 		var dstWindowName = "dst_#_"+request.dstSku+"_#_src_#_"+request.srcSku
 		if( window.name == dstWindowName ){
-			console.log("[BoomRevEXT] will update dst window !!!" + JSON.stringify(request) +", prevVerdict: "+document.getElementById('verdict').innerHTML );
+			console.log("[BoomRevEXT] will update verdict on dst window !!!" + JSON.stringify(request) +", prevVerdict: "+document.getElementById('verdict').innerHTML );
 			document.getElementById('verdict').innerHTML = request.verdict;
+			// window.postMessage(request, "*");
+		}
+
+	}else if ( request.state == "update_dst_window_matchcode" ){
+		
+		var dstWindowName = "dst_#_"+request.dstSku+"_#_src_#_"+request.srcSku
+		if( window.name == dstWindowName ){
+			console.log("[BoomRevEXT] will update matchcode on dst window !!!" + JSON.stringify(request) +", prevMatchCode: "+document.getElementById('matchcode').innerHTML );
+			document.getElementById('matchcode').innerHTML = request.matchcode;
 			// window.postMessage(request, "*");
 		}
 

@@ -1,27 +1,35 @@
-.tool-container1{
+.boomrev-tool-container1{
 
 	position: absolute;
-	height: 70px;
+	height: 175px;
 	width: 350px;
 	top: 0px;
 	right: 10px;
+	float: none;
 
 	box-shadow: -5px 5px 12px #888888;
 	text-align: center;
-	background: rgb(238, 238, 238);
+	font-family: sans-serif;
+	background: rgba(234, 234, 234, 0.9);
 
 	border-radius: 0px 0px 3px 3px;
 	padding: 2px;
 	border: 2px solid white;
 	
-	z-index: 999;
+	z-index: 99999;
 }
 
-.btn1{
+.boomrev-jaga-de{
+	margin: 5px 0;
+	float: none;
+}
+
+.btn1-m{
 	display: inline-block ; 
 	padding: 6px 12px;
 	margin-bottom: 0;
 	font-size: 14px;
+	font-family: sans-serif;
 	font-weight: 400;
 	line-height: 1.42857143;
 	text-align: center;
@@ -31,6 +39,23 @@
 	background-image: none;
 	border: 1px solid transparent;
 	border-radius: 4px;	
+}
+
+.btn1-xs{
+	display: inline-block ; 
+	padding: 1px 5px;
+	margin-bottom: 0;
+	font-size: 12px;
+	font-family: sans-serif;
+	font-weight: 400;
+	line-height: 1.5;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: middle;
+	cursor: pointer;
+	background-image: none;
+	border: 1px solid transparent;
+	border-radius: 3px;	
 }
 
 .btn1-success{
@@ -56,7 +81,8 @@
 	min-width: 10px;
 	padding: 3px 7px;
 	font-size: 12px;
-	font-weight: 700;
+	font-family: sans-serif;
+	font-weight: 100;
 	line-height: 1;
 	color: #fff;
 	text-align: center;
@@ -68,5 +94,8 @@
 
 .showStatus1{
 	font-size: 15px;
-	margin-top: 10px;	
+  	font-family: sans-serif;
+	margin-top: 10px;
+	float: none;
+	text-align: center;
 }

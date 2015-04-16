@@ -1,10 +1,43 @@
-<div class="tool-container1" >
+<div class="boomrev-tool-container1" >
+<div class="boomrev-jaga-de" >
+	<div class="boomrev-jaga-de" >
+		<span class="badge1" >Match Status</span>
+	</div>
+	<button type="button" 
+		class="btn1-m btn1-success" 
+		value="MATCH" 
+		id="test-submit-match" >MATCH</button>
+	<button type="button" 
+		class="btn1-m btn1-info" 
+		value="SIMILAR" 
+		id="test-submit-similar" >SIMILAR</button>
+	<button type="button" 
+		class="btn1-m btn1-warning" 
+		value="NO MATCH" 
+		id="test-submit-nomatch" >NO MATCH</button>
+</div>
 
-<button type="button" class="btn1 btn1-success" id="test-submit-match" >MATCH</button>
-<button type="button" class="btn1 btn1-info" id="test-submit-similar" >SIMILAR</button>
-<button type="button" class="btn1 btn1-warning" id="test-submit-nomatch" >NO MATCH</button>
-<br>
+<div class="boomrev-jaga-de" style="margin-top:15px;" >
+	<div class="boomrev-jaga-de" >
+		<span class="badge1" >Match Code (mismatch) </span>
+	</div>
+	<button type="button" 
+		class="btn1-xs btn1-warning" 
+		value="BRAND_MISMATCH" 
+		id="matchcode-brand" >Brand</button>
+	<button type="button" 
+		class="btn1-xs btn1-success" 
+		value="PACKSIZE_MISMATCH" 
+		id="matchcode-packsize" >Pack Size</button>
+	<button type="button" 
+		class="btn1-xs btn1-info" 
+		value="OTHER_ATTR_MISMATCH" 
+		id="matchcode-otherattr" >OtherAttr</button>
+</div>
+
 <div class="showStatus1" >
-	Verdict: <span class="badge1" id="verdict">Not Selected</span>
+	Match Status : <span class="badge1" id="verdict">Not Selected</span>
+	<br>
+	Match Code : <span class="badge1" id="matchcode">DEFAULT</span>
 </div>
 </div>
