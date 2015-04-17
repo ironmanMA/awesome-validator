@@ -1,7 +1,7 @@
 .main-body{
 	text-align:center;
 	background-color: #eee;
-	width:500px; 	
+	width:650px; 	
 }
 
 .title-header{
@@ -20,30 +20,4 @@
 }  
 ::-webkit-scrollbar-thumb:hover {  
     background-color: #aaa;  
-}
-
-.officedepot-container-boomcomm{
-	width: 100%;
-	font-size: 13px;
-	font-family: inherit;
-	margin-bottom: 10px;
-	padding-top: 5px;
-	height: 20px;
-	color: white;
-	background: rgba(0, 133, 207, 0.7);
-	text-transform: uppercase;
-}
-
-.officedepot-srcapeStatus-boomcomm{
-	margin-left: 20%;	
-}
-
-.officedepot-productLink-boomcomm{
-	color: white;
-	font-size: 15px;
-	font-family: inherit;	
-}
-
-.officedepot-productLink-boomcomm:hover {
-    color: black;
 }

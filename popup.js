@@ -1,46 +1,43 @@
-$(function() {
-  $('#lauchWebsite').click(function() {
-     chrome.tabs.create({url: 'http://boomerangcommerce.com'});
-  });
-});
 
-$(function() {
-$('#test-submit-now').click(function() {
-	console.log(" clicked send")
-	chrome.storage.local.get(null,function (obj){
-		console.log(obj)
-		chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-			console.log(tabs)
-			chrome.tabs.sendMessage(tabs[0].id, obj, function(response) {
-				console.log(response);
-			});
-		});	
-	});	
-});
-});
+chrome.storage.local.get(null,function (objStore){
+	console.log(JSON.stringify(objStore ));
+	for( var objIter =0 ; objIter < objStore.fetch.length; objIter++ ){
 
-document.addEventListener('DOMContentLoaded');
+		/*Master Row*/
+		var skuRow =  document.createElement("div");
+		skuRow.setAttribute("class","row");
 
-chrome.storage.local.get(null,function (obj){
-	console.log(JSON.stringify(obj));
-	console.log(obj);
+		/*src SKU bar*/
+		var srcSkuRow =  document.createElement("div");
+		srcSkuRow.setAttribute("class","col-xs-2 text-center");
+		srcSkuRow.innerHTML = objStore.fetch[objIter].srcSku
 
-	// if(obj.expressions == undefined){
-	// 	obj.expressions = {};
-	// 	obj.expressions.hi = "Local Chrome Storage, "
-	// }
+		/*dst SKU bar*/
+		var dstSkuRow =  document.createElement("div");
+		dstSkuRow.setAttribute("class","col-xs-3 text-center");
+		dstSkuRow.innerHTML = objStore.fetch[objIter].dstSku
 
-	$("#storageAreaChrome").html( JSON.stringify(obj) )
-});
+		/*matchStatus bar*/
+		var matchStatusRow =  document.createElement("div");
+		matchStatusRow.setAttribute("class","col-xs-3 text-center");
+		matchStatusRow.innerHTML = objStore.fetch[objIter].verdict
 
-$('#test-submit-now').click(function() {
-	console.log(" clicked send")
-	chrome.storage.local.get(null,function (obj){
-		chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-			chrome.tabs.sendMessage(tabs[0].id, obj, function(response) {
-			console.log(response.farewell);
-			});
-		});	
-	});	
+		/*matchCode bar*/
+		var matchCodeRow =  document.createElement("div");
+		matchCodeRow.setAttribute("class","col-xs-4 text-center");
+		matchCodeRow.innerHTML = objStore.fetch[objIter].matchcode
+
+		/*Mearge all into oneblock*/
+		skuRow.appendChild(srcSkuRow)
+		skuRow.appendChild(dstSkuRow)
+		skuRow.appendChild(matchStatusRow)
+		skuRow.appendChild(matchCodeRow)
+
+		/*Merget to the bar man*/
+		document.getElementById("action-bar").appendChild(skuRow)
+
+	}
+	
+	// $("#storageAreaChrome").html( JSON.stringify(objStore) )
 });
 
